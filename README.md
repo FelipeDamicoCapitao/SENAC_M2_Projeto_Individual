@@ -1,6 +1,4 @@
-# Trabalho_individual_Modulo2
-
-# Sistema de avaliação de candidatos (Trabalho Individual - Modulo 1)
+# Sistema de avaliação de candidatos (Trabalho Individual - Modulo 2)
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/FelipeDamicoCapitao/Trabalho_individual_Modulo2/blob/main/LICENSE)
 
 # Sobre o Projeto
