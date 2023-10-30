@@ -218,7 +218,7 @@ def exclusao():
 
     print(f"{NVerde}\nConfira a lista dos candidatos inseridos até o momento:{Corfim}")
     for i, nome in enumerate(lista_candidatos):
-        print (f"{i+1} - {nome[0]}")
+        print (f"{NAmarelo}{i+1} - {nome[0]} - {NCinza}{nome[1]}{Corfim}")
 
     while True:
         try:
@@ -273,7 +273,7 @@ be,bt,bp,bs = minimas()
 busca()
 
 ######################################################################################################################################################
-# Execução Secundária - 
+# Execução Secundária - Alteração de dados e finalização 
 
 while True:
     sep3()
@@ -306,20 +306,6 @@ while True:
         print(f"{NVermelho}Digite apenas 1, 2 ou 3{Corfim}")
         
 
-# " 1 inserir outros candidatos"
-# "Redefinir a nota de Corte"
-# "Imprimir resultados"
-
-# while True:
-#     resp2 = input(f"{NCiano}\nDeseja redefinir as notas de corte? [S/N]{Corfim}").upper()
-#     if resp2 == "S":
-#         busca()
-#     elif resp2 == "N":
-#         X = (f"Obrigado por usar nosso programa")
-#         sep(X)
-#         break
-#     else:
-#         print(f"{NVermelho}Digite apenas S para sim ou N para não{Corfim}")
 
 
 
