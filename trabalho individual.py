@@ -21,6 +21,8 @@ from B1_separacao import sep3 # separação de prontilhados
 
 def padrao_espera():#fazer o programa não apresentar os resultados instantaneamente - 0.4 segundos de espera
     espera(0.4)
+def padrao_espera_longo():#fazer o programa não apresentar os resultados instantaneamente - 0.4 segundos de espera
+    espera(1.6)
 
 ######################################################################################################################################################
 # Cores
@@ -105,22 +107,6 @@ def candidato(lista_candidatos):
     lista_candidatos.append(tupla_candidato)
     return lista_candidatos
 
-#Rodar o primeiro Candidato
-lista_candidatos = candidato(lista_candidatos)
-
-#Rodar do segundo candidato à frente
-while True:
-    resp1 = input(f"{NCiano}Deseja inserir mais um candidato? [S/N] {Corfim}")
-    resp1= resp1.upper()
-    if resp1 == "S": # Se Sim
-        candidato(lista_candidatos)
-        
-    elif resp1 == "N": #se não
-        break
-    
-    else: # bug
-        print(f"{NVermelho}Digite apenas S para sim ou N para não{Corfim}")
-
 ######################################################################################################################################################
 # Função que define notas minimas:
 
@@ -175,11 +161,6 @@ def minimas():
             print(f"{NVermelho} Digite um numero entre 0 e 10:")
 
     padrao_espera()
-    X = (f"Apresentação de Aprovados")
-    sep(X)        
-
-    print(f"{NVerde}As Notas de Corte definidas foram: {Corfim}")
-    print(f"{NAmarelo}Entrevista: {NBranco}{be}\n{NAmarelo}Teste Teórico: {NBranco}{bp}\n{NAmarelo}Teste pratico {NBranco}{bp}\n{NAmarelo}Avaliação em soft skills: {NBranco}{bs}{Corfim}")
 
     return(be,bt,bp,bs)
 
@@ -190,9 +171,14 @@ def busca():
     """
     Função que fatia a String e avalia se cada dandidato passou ou não adionando à uma lista.
     """
+    X = (f"Apresentação de Aprovados")
+    sep(X)        
+
+    print(f"{NVerde}As Notas de Corte definidas foram: {Corfim}")
+    print(f"{NAmarelo}Entrevista: {NBranco}{be}\n{NAmarelo}Teste Teórico: {NBranco}{bp}\n{NAmarelo}Teste pratico {NBranco}{bp}\n{NAmarelo}Avaliação em soft skills: {NBranco}{bs}{Corfim}")
+
     aprovados = []
     reprovados = []
-    be,bt,bp,bs = minimas()
 
     for i in range(len(lista_candidatos)):
         e_index = lista_candidatos[i][1].index("e")
@@ -207,40 +193,133 @@ def busca():
 
 
         if e_nota >= be and t_nota >= bt and p_nota >= bp and s_nota >= bs:
-            aprovados.append(lista_candidatos[i][0])
+            aprovados.append(lista_candidatos[i])
         else:
-            reprovados.append(lista_candidatos[i][0])
+            reprovados.append(lista_candidatos[i])
 
     if len(aprovados) == 0:
         print(f"{NVermelho}\nNão houve candidatos aprovados {Corfim}")
 
     else:
         print(f"{NVerde}\nOs candidatos aprovados foram: {Corfim}")
-        print(f"{NCinza}(em ordem amfabética) {Corfim}")
+        print(f"{NCiano}(em ordem amfabética) {Corfim}")
 
         aprovados.sort()
 
         for i in range(len(aprovados)):
-            print (f"{NAmarelo}{aprovados[i]}{Corfim}")
+            print (f"{NAmarelo}{aprovados[i][0]} - {NCinza}{aprovados[i][1]}{Corfim}")
 
 ######################################################################################################################################################
-# Execução primária
+# Exclui um candidato
 
+def exclusao():
+    X = (f"Exclusão de candidato")
+    sep(X)   
+
+    print(f"{NVerde}\nConfira a lista dos candidatos inseridos até o momento:{Corfim}")
+    for i, nome in enumerate(lista_candidatos):
+        print (f"{i+1} - {nome[0]}")
+
+    while True:
+        try:
+            excluido = int(input(f"\n{NCiano}Selecione o candidato a ser excluido pelo incice acima: {Corfim}"))
+            excluido = excluido - 1
+            break
+        except:
+            print(f"{NVermelho} Digite apenas numeros inteiros:")
+            
+            
+    if excluido in range(len(lista_candidatos)):
+        print(f"{NAmarelo}O candidato: {lista_candidatos[i][0]} será excluido{Corfim}")
+        while True:
+            excluido = input(f"{NVermelho}\nConfirma a excluisão de {lista_candidatos[i][0]}? [S/N]: {Corfim}").upper()
+            if excluido == "N":
+
+                print(f"{NVerde}O candidato {lista_candidatos[i][0]} não foi excluido {Corfim}")
+                break
+            elif excluido =="S":
+                print(f"{NVerde} O candidato {lista_candidatos[i][0]} foi excluido {Corfim}")
+                lista_candidatos.pop(i)
+                
+                break
+            else:  
+                print(f"{NVermelho}Digite apenas S para sim ou N para não{Corfim}")
+
+
+######################################################################################################################################################
+######################################################################################################################################################
+# Executa a inserção dos candidatos
+
+#Rodar o primeiro Candidato
+lista_candidatos = candidato(lista_candidatos)
+
+#Rodar do segundo candidato à frente
+while True:
+    resp1 = input(f"{NCiano}Deseja inserir mais um candidato? [S/N] {Corfim}")
+    resp1= resp1.upper()
+    if resp1 == "S": # Se Sim
+        candidato(lista_candidatos)
+        
+    elif resp1 == "N": #se não
+        break
+    
+    else: # bug
+        print(f"{NVermelho}Digite apenas S para sim ou N para não{Corfim}")
+
+######################################################################################################################################################
+# Execução a definicação de cortes
+
+be,bt,bp,bs = minimas()
 busca()
 
 ######################################################################################################################################################
-# Execução Secundária - looping infinito
+# Execução Secundária - 
 
 while True:
-    resp2 = input(f"{NCiano}\nDeseja redefinir as notas de corte? [S/N]{Corfim}").upper()
-    if resp2 == "S":
+    sep3()
+
+    print(f"{NCiano}\nSelecione entre as 3 opções abaixo: {Corfim}")
+    print(f"{NAmarelo}1 - Inserir novos candidato{Corfim}" )
+    print(f"{NAmarelo}2 - Excluir um candidato{Corfim}" )
+    print(f"{NAmarelo}3 - Redefinir Notas de Corte{Corfim}")
+    print(f"{NAmarelo}4 - Imprimir Aprovados{Corfim}")
+    print(f"{NAmarelo}5 - Sair do programa{Corfim}")
+    decisao = input(f"{NVerde}Selecione a ação desejada: {Corfim}")
+
+    if decisao == "1":
+        candidato(lista_candidatos)
+
+    if decisao == "2":
+        exclusao()
+
+
+    elif decisao == "3":
+        be,bt,bp,bs = minimas()
         busca()
-    elif resp2 == "N":
+    elif decisao == "4":
+        busca()
+    elif decisao == "5":
         X = (f"Obrigado por usar nosso programa")
         sep(X)
         break
     else:
-        print(f"{NVermelho}Digite apenas S para sim ou N para não{Corfim}")
+        print(f"{NVermelho}Digite apenas 1, 2 ou 3{Corfim}")
+        
+
+# " 1 inserir outros candidatos"
+# "Redefinir a nota de Corte"
+# "Imprimir resultados"
+
+# while True:
+#     resp2 = input(f"{NCiano}\nDeseja redefinir as notas de corte? [S/N]{Corfim}").upper()
+#     if resp2 == "S":
+#         busca()
+#     elif resp2 == "N":
+#         X = (f"Obrigado por usar nosso programa")
+#         sep(X)
+#         break
+#     else:
+#         print(f"{NVermelho}Digite apenas S para sim ou N para não{Corfim}")
 
 
 
